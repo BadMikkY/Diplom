@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model User {
+  UserID        Int           @id @default(autoincrement())
+  UserName      String        @db.Text
+  Email         String        @unique @db.Text
+  Password      String        @db.Text
+  Role          String        @db.Text
+  Bookings      Booking[]
+  Reviews       Review[]
+}
+
+model Service {
+  ServiceID   Int    @id @default(autoincrement())
+  ServiceName String @db.Text
+  Description String @db.Text
+}
+
+model Specialist {
+  SpecialistID Int      @id @default(autoincrement())
+  Email        String   @unique @db.Text
+  Skills       String   @db.Text
+  SpecName     String   @db.Text
+  Password     String   @db.Text
+  Experience   String   @db.Text
+  Schedule     String   @db.Text
+  Rates        String   @db.Text
+  Bookings     Booking[]
+  Reviews      Review[]
+}
+
+model Booking {
+  BookingID     Int           @id @default(autoincrement())
+  UserID        Int
+  SpecialistID  Int
+  BookingDate   DateTime
+  Status        String        @db.Text
+  ReviewID      Int
+  User          User          @relation(fields: [UserID], references: [UserID])
+  Specialist    Specialist    @relation(fields: [SpecialistID], references: [SpecialistID])
+  WorkProgress  WorkProgress?
+}
+
+model Review {
+  ReviewID     Int         @id @default(autoincrement())
+  UserID       Int
+  SpecialistID Int
+  Rating       String      @db.Text
+  ReviewText   String      @db.Text
+  User         User        @relation(fields: [UserID], references: [UserID])
+  Specialist   Specialist  @relation(fields: [SpecialistID], references: [SpecialistID])
+}
+
+model WorkProgress {
+  ProgressID Int      @id @default(autoincrement())
+  BookingID  Int      @unique
+  Percentage Int
+  UpdateTime DateTime
+  Booking    Booking  @relation(fields: [BookingID], references: [BookingID])
+}
