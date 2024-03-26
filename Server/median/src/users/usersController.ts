@@ -29,11 +29,14 @@ export class UserController {
     }
 
     @Post('login')
-    async loginUser(@Body() loginData:{email:string,password:string},@Res() res:any){
-        try{
-            const user = await this.userService.loginUser(loginData.email,loginData.password);
+    async loginUser(@Body() loginData: { email: string, password: string }, @Res() res: any) {
+        try {
+            let user = await this.userService.loginUser(loginData.email, loginData.password);
+            if (user) {
+                user.Password = undefined; 
+            }
             res.status(HttpStatus.OK).json(user);
-        }catch(error:any){
+        } catch (error: any) {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }

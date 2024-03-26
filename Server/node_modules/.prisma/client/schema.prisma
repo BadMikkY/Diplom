@@ -20,12 +20,17 @@ model User {
   Role          String        @db.Text
   Bookings      Booking[]
   Reviews       Review[]
+  Services      Service[]
 }
 
 model Service {
   ServiceID   Int    @id @default(autoincrement())
   ServiceName String @db.Text
   Description String @db.Text
+  UserID      Int
+  User        User   @relation(fields: [UserID], references: [UserID])
+  Specialist  Specialist? @relation(fields: [SpecialistID], references: [SpecialistID])
+  SpecialistID Int?
 }
 
 model Specialist {
@@ -39,13 +44,14 @@ model Specialist {
   Rates        String   @db.Text
   Bookings     Booking[]
   Reviews      Review[]
+  Services     Service[]
 }
 
 model Booking {
   BookingID     Int           @id @default(autoincrement())
   UserID        Int
   SpecialistID  Int
-  BookingDate   DateTime
+  BookingDate   String        @db.Text
   Status        String        @db.Text
   ReviewID      Int
   User          User          @relation(fields: [UserID], references: [UserID])

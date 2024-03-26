@@ -1,11 +1,11 @@
-import { Body, Controller, Get,HttpStatus,Param,Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Res } from '@nestjs/common';
 import { SpecService } from './spec.service';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('spec')
 @Controller('spec')
 export class SpecController {
-  constructor(private readonly specService: SpecService) {}
+  constructor(private readonly specService: SpecService) { }
 
   @Post('create')
   async createSpec(@Body() specData: any, @Res() res: any) {
@@ -31,6 +31,9 @@ export class SpecController {
   async loginSpec(@Body() loginData: { email: string, password: string }, @Res() res: any) {
     try {
       const spec = await this.specService.loginSpec(loginData.email, loginData.password);
+      if (spec) {
+        spec.Password = undefined;
+      }
       res.status(HttpStatus.OK).json(spec);
     } catch (error: any) {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
@@ -56,7 +59,14 @@ export class SpecController {
     return this.specService.addReviewAndRating(UserID, SpecialistID, ReviewText, Rating);
   }
 
-
-  
+  @Post('getreviews')
+  async getReviewsBySpecialistId(@Body('SpecialistID') specialistId: number, @Res() res: any) {
+    try {
+      const reviews = await this.specService.getReviewsBySpecialistId(specialistId);
+      res.status(HttpStatus.OK).json(reviews);
+    } catch (error: any) {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
+    }
+  }
 
 }

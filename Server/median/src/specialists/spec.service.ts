@@ -106,4 +106,12 @@ export class SpecService {
     return newReview;
   }
 
+  async getReviewsBySpecialistId(specialistId: number) {
+    const review = await prisma.review.findMany({
+      where: {
+        SpecialistID: specialistId,
+      },
+    });
+    return review;
+  }
 }
