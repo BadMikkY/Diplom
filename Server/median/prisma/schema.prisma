@@ -72,7 +72,7 @@ model Review {
 model WorkProgress {
   ProgressID Int      @id @default(autoincrement())
   BookingID  Int      @unique
+  Comment    String   @db.Text
   Percentage Int
-  UpdateTime DateTime
   Booking    Booking  @relation(fields: [BookingID], references: [BookingID])
 }
