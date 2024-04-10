@@ -6,4 +6,5 @@ sealed class RegistrationEvent {
 
     object RegisterUser :
         RegistrationEvent()
+
 }

@@ -1,4 +1,7 @@
 package com.example.diplom.screen.authorization
 
-class AuthorizationEvent {
+sealed class AuthorizationEvent {
+
+    object ConfirmButtonClicked :
+        AuthorizationEvent()
 }

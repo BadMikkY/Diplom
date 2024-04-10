@@ -1,4 +1,4 @@
-package com.example.diplom.navigation
+package com.example.diplom.api
 
 import com.example.diplom.model.User
 import retrofit2.Response

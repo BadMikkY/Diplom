@@ -1,6 +1,6 @@
 package com.example.diplom.repository
 
-import com.example.diplom.navigation.UserApi
+import com.example.diplom.api.UserApi
 import com.example.diplom.model.User
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.diplom.navigation.AppNavigator
+import com.example.diplom.navigation.Destination
 import com.example.diplom.screen.registration.RegistrationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -41,7 +42,10 @@ class ClientRegVIewModel @Inject constructor(
     fun handleEvent(regEvent: ClientRegEvent) {
         when (regEvent) {
             is ClientRegEvent.SignInButtonClicked -> {
-
+                appNavigator.tryNavigateTo(
+                    Destination.NavigationBarScreen(),
+                    popUpToRoute = Destination.ClientRegScreen()
+                )
             }
 
             is ClientRegEvent.RegisterUser -> {

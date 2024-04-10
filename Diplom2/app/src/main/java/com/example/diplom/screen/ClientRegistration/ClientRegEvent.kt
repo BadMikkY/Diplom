@@ -8,4 +8,12 @@ sealed class ClientRegEvent {
 
     object RegisterUser :
         ClientRegEvent()
+
+//    class PasswordStringChanged():
+//        ClientRegEvent()
+//    class EmailStringChanged():
+//        ClientRegEvent()
+//
+//    class NameStringChanged():
+//        ClientRegEvent()
 }

@@ -16,8 +16,12 @@ import com.example.diplom.navigation.NavigationIntent
 import com.example.diplom.navigation.composable
 import com.example.diplom.screen.ClientRegistration.ClientRegScreen
 import com.example.diplom.screen.authorization.AuthorizationScreen
+import com.example.diplom.screen.bookingsScreen.BookingsScreen
 import com.example.diplom.screen.entry.EntryScreen
+import com.example.diplom.screen.main.MainScreen
+import com.example.diplom.screen.navigationBar.BottomBarMainScreen
 import com.example.diplom.screen.registration.RegistrationScreen
+import com.example.diplom.screen.settings.SettingsScreen
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -53,6 +57,19 @@ fun RootSreen(
             }
             composable(destination = Destination.ClientRegScreen) {
                 ClientRegScreen()
+            }
+            composable(destination = Destination.MainScreen) {
+                MainScreen()
+            }
+            composable(destination = Destination.BookingsScreen) {
+                BookingsScreen()
+            }
+            composable(destination = Destination.SettingsScreen) {
+                SettingsScreen()
+            }
+
+            composable(destination = Destination.NavigationBarScreen) {
+                BottomBarMainScreen()
             }
         }
     }

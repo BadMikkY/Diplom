@@ -1,6 +1,6 @@
 package com.example.diplom.di
 
-import com.example.diplom.navigation.UserApi
+import com.example.diplom.api.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
