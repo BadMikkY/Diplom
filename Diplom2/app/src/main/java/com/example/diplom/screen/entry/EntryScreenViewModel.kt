@@ -25,6 +25,13 @@ class EntryScreenViewModel @Inject constructor(private val appNavigator: AppNavi
                     popUpToRoute = Destination.EntryScreen()
                 )
             }
+
+            is EntryScreenEvent.AuthButtonClick -> {
+                appNavigator.tryNavigateTo(
+                    Destination.AuthorizationScreen(),
+                    popUpToRoute = Destination.EntryScreen()
+                )
+            }
         }
     }
 

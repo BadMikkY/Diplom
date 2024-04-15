@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -39,10 +40,26 @@ fun EntryScreen(viewModel: EntryScreenViewModel = hiltViewModel()) {
             EntryButton(
                 text = R.string.worker,
                 buttonWidth = 130.dp,
-                onClick = {viewModel.handleEvent(EntryScreenEvent.WorkerButtonClicked)}
+                onClick = { viewModel.handleEvent(EntryScreenEvent.WorkerButtonClicked) }
             )
-            EntryButton(text = R.string.client, buttonWidth = 130.dp, onClick = {viewModel.handleEvent(EntryScreenEvent.ClientButtonClicked)})
+            EntryButton(
+                text = R.string.client,
+                buttonWidth = 130.dp,
+                onClick = { viewModel.handleEvent(EntryScreenEvent.ClientButtonClicked) })
         }
 
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+
+        ) {
+            EntryButton(
+                text = R.string.Auth,
+                buttonWidth = 190.dp,
+                onClick = { viewModel.handleEvent(EntryScreenEvent.AuthButtonClick) })
+        }
     }
 }

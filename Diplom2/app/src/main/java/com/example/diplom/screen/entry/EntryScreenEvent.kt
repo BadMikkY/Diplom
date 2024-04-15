@@ -8,4 +8,7 @@ sealed class EntryScreenEvent {
 
     object  WorkerButtonClicked:
         EntryScreenEvent()
+
+    object  AuthButtonClick:
+        EntryScreenEvent()
 }

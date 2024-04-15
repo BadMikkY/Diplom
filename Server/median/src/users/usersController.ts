@@ -29,9 +29,9 @@ export class UserController {
     }
 
     @Post('login')
-    async loginUser(@Body() loginData: { email: string, password: string }, @Res() res: any) {
+    async loginUser(@Body() loginData: { Email: string, Password: string }, @Res() res: any) {
         try {
-            let user = await this.userService.loginUser(loginData.email, loginData.password);
+            let user = await this.userService.loginUser(loginData.Email, loginData.Password);
             if (user) {
                 user.Password = undefined; 
             }

@@ -28,9 +28,9 @@ export class SpecController {
   }
 
   @Post('login')
-  async loginSpec(@Body() loginData: { email: string, password: string }, @Res() res: any) {
+  async loginSpec(@Body() loginData: { Email: string, Password: string }, @Res() res: any) {
     try {
-      const spec = await this.specService.loginSpec(loginData.email, loginData.password);
+      const spec = await this.specService.loginSpec(loginData.Email, loginData.Password);
       if (spec) {
         spec.Password = undefined;
       }

@@ -4,7 +4,4 @@ sealed class RegistrationEvent {
     object SignInButtonClicked :
         RegistrationEvent()
 
-    object RegisterUser :
-        RegistrationEvent()
-
 }

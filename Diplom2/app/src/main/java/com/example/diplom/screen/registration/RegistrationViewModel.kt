@@ -1,52 +1,63 @@
 package com.example.diplom.screen.registration
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.diplom.api.SpecialistApi
+import com.example.diplom.model.Specialist
+import com.example.diplom.model.SpecialistResponce
+import com.example.diplom.model.User
 import com.example.diplom.navigation.AppNavigator
 import com.example.diplom.navigation.Destination
+import com.example.diplom.repository.SharedPreferencesRepository
 import com.example.diplom.repository.UserRepository
 import com.example.diplom.screen.registration.RegistrationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
+    private val reposity: SpecialistApi,
+    private val sharedPreferencesRepisitory: SharedPreferencesRepository,
     private val appNavigator: AppNavigator
 ) : ViewModel() {
 
-    var skills by mutableStateOf("")
+    var Skills by mutableStateOf("")
         private set
     fun updateSkills(input: String) {
-        skills = input
+        Skills = input
     }
 
-    var experience by mutableStateOf("")
+    var Experience by mutableStateOf("")
         private set
     fun updateExperience(input: String) {
-        experience = input
+        Experience = input
     }
 
-    var email by mutableStateOf("")
+    var Email by mutableStateOf("")
         private set
 
     fun updateEmail(input: String) {
-        email = input
+        Email = input
     }
 
-    var specName by mutableStateOf("")
+    var SpecName by mutableStateOf("")
         private set
 
     fun updateName(input: String) {
-        specName = input
+        SpecName = input
     }
 
-    var password by mutableStateOf("")
+    var Password by mutableStateOf("")
         private set
 
     fun updatePassword(input: String) {
-        password = input
+        Password = input
     }
 
     var confirmPassword by mutableStateOf("")
@@ -56,23 +67,40 @@ class RegistrationViewModel @Inject constructor(
 
     fun handleEvent(regEvent: RegistrationEvent) {
 
+
         when (regEvent) {
             is RegistrationEvent.SignInButtonClicked -> {
-                appNavigator.tryNavigateTo(
-                    Destination.AuthorizationScreen(),
-                    popUpToRoute = Destination.RegistrationScreen()
-                )
-            }
-
-            is RegistrationEvent.RegisterUser -> {
-
+                viewModelScope.launch(Dispatchers.IO) {
+                    try {
+                        val response = reposity.registerSpec(Specialist(Email,Skills,SpecName,Password,Experience, Schedule = "", Rates = "5"))
+                        if (response.isSuccessful && isTextFieldsEmpty()) {
+                            response.body()?.let { specialistResponse ->
+                                specialistResponse.Email?.let { sharedPreferencesRepisitory.setSpecialistMail(it) }
+                                specialistResponse.Rates?.let { sharedPreferencesRepisitory.setSpecRates(it) }
+                                specialistResponse.Skills?.let { sharedPreferencesRepisitory.setSpecSkills(it) }
+                                specialistResponse.SpecName?.let { sharedPreferencesRepisitory.setSpecName(it) }
+                                specialistResponse.Experience?.let { sharedPreferencesRepisitory.setSpecExp(it) }
+                                specialistResponse.Schedule?.let { sharedPreferencesRepisitory.setShedule(it) }
+                                sharedPreferencesRepisitory.setUserId(specialistResponse.specID)
+                            }
+                            viewModelScope.launch {
+                                appNavigator.tryNavigateTo(
+                                    Destination.AuthorizationScreen(),
+                                    popUpToRoute = Destination.ClientRegScreen()
+                                )
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e("ClientRegViewModel", "Exception in handleEvent", e)
+                    }
+                }
             }
         }
     }
 
 
     private fun isTextFieldsEmpty(): Boolean {
-        return if (email.isNotEmpty() || password.isNotEmpty() || confirmPassword.isNotEmpty()) {
+        return if (Email.isNotEmpty() || Password.isNotEmpty() || confirmPassword.isNotEmpty()) {
             true
         } else {
             onEmptyTextFields

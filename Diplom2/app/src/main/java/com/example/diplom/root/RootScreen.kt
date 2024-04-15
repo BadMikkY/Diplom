@@ -22,6 +22,7 @@ import com.example.diplom.screen.main.MainScreen
 import com.example.diplom.screen.navigationBar.BottomBarMainScreen
 import com.example.diplom.screen.registration.RegistrationScreen
 import com.example.diplom.screen.settings.SettingsScreen
+import com.example.diplom.screen.workerNavigationBar.BottomWorkerBarScreen
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -47,6 +48,10 @@ fun RootSreen(
         ) {
             composable(destination = Destination.RegistrationScreen) {
                 RegistrationScreen()
+            }
+
+            composable(destination = Destination.BottomWorkerBarScreen){
+                BottomWorkerBarScreen()
             }
 
             composable(destination = Destination.AuthorizationScreen) {

@@ -38,7 +38,7 @@ fun RegistrationScreen(viewModel: RegistrationViewModel = hiltViewModel()) {
         Text(text = stringResource(id = R.string.welcome))
 
         TextField(
-            viewModel.specName,
+            viewModel.SpecName,
             R.string.your_name,
             R.string.your_name,
             16.dp,
@@ -48,30 +48,30 @@ fun RegistrationScreen(viewModel: RegistrationViewModel = hiltViewModel()) {
         )
 
         TextField(
-            viewModel.email,
+            viewModel.Email,
             R.string.email, R.string.email_example, 16.dp, isVerified = true,
             onChange = { email -> viewModel.updateEmail(email) },
             supportText = R.string.email_valid,
         )
 
         TextField(
-            viewModel.password,
+            viewModel.Password,
             R.string.password,R.string.password,16.dp, isVerified = true,
             onChange = {password -> viewModel.updatePassword(password)},
             supportText = R.string.nothing
         )
 
         TextField(
-            viewModel.skills,
+            viewModel.Skills,
             R.string.skills,R.string.skills,16.dp, isVerified = true,
             onChange = {skills -> viewModel.updateSkills(skills)},
             supportText = R.string.nothing
         )
 
         TextField(
-            viewModel.experience,
+            viewModel.Experience,
             R.string.experience,R.string.experience,16.dp, isVerified = true,
-            onChange = {experience -> viewModel.updatePassword(experience)},
+            onChange = {experience -> viewModel.updateExperience(experience)},
             supportText = R.string.nothing
         )
 

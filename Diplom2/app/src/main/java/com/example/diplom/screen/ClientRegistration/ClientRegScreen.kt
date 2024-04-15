@@ -31,7 +31,7 @@ fun ClientRegScreen(vIewModel: ClientRegVIewModel = hiltViewModel()) {
         Text(text = stringResource(id = R.string.welcome))
 
         TextField(
-            vIewModel.userName,
+            vIewModel.UserName,
             R.string.your_name,
             R.string.your_name,
             16.dp,
@@ -41,14 +41,14 @@ fun ClientRegScreen(vIewModel: ClientRegVIewModel = hiltViewModel()) {
         )
 
         TextField(
-            vIewModel.email,
+            vIewModel.Email,
             R.string.email, R.string.email_example, 16.dp, isVerified = true,
             onChange = { email -> vIewModel.updateEmail(email) },
             supportText = R.string.email_valid,
         )
 
         TextField(
-            vIewModel.password,
+            vIewModel.Password,
             R.string.password, R.string.password,16.dp, isVerified = true,
             onChange = {password -> vIewModel.updatePassword(password)},
             supportText = R.string.nothing
@@ -57,7 +57,7 @@ fun ClientRegScreen(vIewModel: ClientRegVIewModel = hiltViewModel()) {
         CommonButton(
             text = R.string.move_next,
             topPadding = 150.dp,
-            onClick = { vIewModel.handleEvent(ClientRegEvent.SignInButtonClicked) })
+            onClick = { vIewModel.handleEvent(ClientRegEvent.RegisterUser) })
     }
 
 }
