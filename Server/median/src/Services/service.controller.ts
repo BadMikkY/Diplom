@@ -41,4 +41,15 @@ export class ServiceController {
         res.status(HttpStatus.BAD_REQUEST).json({ error: 'Invalid body parameters. Both serviceName and description must be provided.' });
       }
     }
+
+
+    @Get('all')
+    async getAllServices(@Res() res: any) {
+        try {
+            const services = await this.jobService.getAllServices();
+            res.status(HttpStatus.OK).json(services);
+        } catch (error: any) {
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
 }

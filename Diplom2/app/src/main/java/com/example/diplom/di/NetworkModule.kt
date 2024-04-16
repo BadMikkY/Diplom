@@ -1,5 +1,6 @@
 package com.example.diplom.di
 
+import com.example.diplom.api.ServicesApi
 import com.example.diplom.api.SpecialistApi
 import com.example.diplom.api.UserApi
 import dagger.Module
@@ -51,5 +52,24 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return retrofit.create(SpecialistApi::class.java)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideServiceApi(): ServicesApi {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.43.19:3000/")
+            .client(
+                OkHttpClient().newBuilder()
+                    .addInterceptor(
+                        HttpLoggingInterceptor().apply {
+                            level = HttpLoggingInterceptor.Level.BODY
+                        })
+                    .build()
+            )
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit.create(ServicesApi::class.java)
     }
 }

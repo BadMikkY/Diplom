@@ -18,6 +18,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -29,12 +30,16 @@ import com.example.diplom.model.Service
 import com.example.diplom.model.Specialist
 
 @Composable
-fun MainScreen(viewModel: MainScreenViewModel = hiltViewModel()){
+fun MainScreen(viewModel: MainScreenViewModel = hiltViewModel()) {
 
-val serviceState =viewModel.serviceistListState
+    LaunchedEffect(key1 = true) {
+        viewModel.handleEvent(MainScreenEvent.loadServices)
+    }
+
+    val serviceState = viewModel.serviceistListState
 
     Column {
-        SearchTextField()
+        SearchTextField(viewModel)
 
         HorizontalDivider(
             modifier = Modifier
@@ -49,7 +54,6 @@ val serviceState =viewModel.serviceistListState
             onEndReached = { viewModel.handleEvent(MainScreenEvent.loadServices) })
     }
 }
-
 
 
 @Composable
@@ -89,12 +93,14 @@ fun CardGrid(
                     modifier = Modifier
                         .padding(horizontal = 10.dp)
                         .padding(vertical = 10.dp)
+                        .padding(top = 120.dp)
                 ) {
 
-                    it.serviceName?.let { it1 ->
+
+                    it.ServiceName?.let { it1 ->
                         Text(
                             text = it1,
-                            modifier = Modifier.padding(top = 10.dp, bottom = 6.dp),
+                            modifier = Modifier.padding(top = 6.dp),
                             color = Color.Black
                         )
                     }

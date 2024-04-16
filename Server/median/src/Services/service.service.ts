@@ -25,7 +25,7 @@ export class JobService {
         return service;
     }
 
-    async getAllServices(serviceName: string, description: string) {
+    async getAllServices(serviceName?: string, description?: string) {
         let whereClause = {};
         if (serviceName) {
             whereClause = {
