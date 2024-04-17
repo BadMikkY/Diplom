@@ -1,5 +1,8 @@
 package com.example.diplom.model
 
 data class ServiceResponse(
-    val services: List<Service>
+    val ServiceId: Int,
+    val ServiceName: String,
+    val Description: String,
+    val UserID: Int
 )

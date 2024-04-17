@@ -56,7 +56,7 @@ class ClientRegVIewModel @Inject constructor(
                             response.body()?.let { userResponse ->
                                 userResponse.Username?.let { sharedPreferencesRepisitory.setUsername(it) }
                                 userResponse.Email?.let { sharedPreferencesRepisitory.setUserMail(it) }
-                                sharedPreferencesRepisitory.setUserId(userResponse.userID)
+                                sharedPreferencesRepisitory.setUserId(userResponse.UserID)
                             }
                             viewModelScope.launch {
                                 appNavigator.tryNavigateTo(

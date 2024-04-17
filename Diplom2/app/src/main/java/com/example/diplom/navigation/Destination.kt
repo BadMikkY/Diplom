@@ -32,6 +32,8 @@ sealed class Destination(protected val route: String, vararg params: String) {
     object WorkerMainScreen : NoArgumentsDestinationBottom(WORKER_MAIN, title = R.string.main, icon = R.drawable.main_icon)
     object WorkerBookingsScreen : NoArgumentsDestinationBottom(WORKER_BOOKINGS, title = R.string.settings, icon = R.drawable.ic_settings)
 
+    object  ServiceCreatingScreen: NoArgumentsDestinationBottom(CREATING_SERVICE, title = R.string.nothing, icon = R.drawable.ic_plus )
+
     object BottomWorkerBarScreen : NoArgumentsDestination(WORKER_BAR)
 
     object NavigationBarScreen : NoArgumentsDestination(BAR_ROUTE)
@@ -49,8 +51,9 @@ sealed class Destination(protected val route: String, vararg params: String) {
         private const val BAR_ROUTE = "bottomnav"
         private const val WORKER_BAR = "workerbar"
         private const val WORKER_SETTINGS = "workersettings"
-        private const val WORKER_MAIN = "workersettings"
+        private const val WORKER_MAIN = "workermain"
         private const val WORKER_BOOKINGS = "worker"
+        private const val CREATING_SERVICE = "creatingservice"
     }
 
 }

@@ -1,4 +1,8 @@
 package com.example.diplom.screen.workerSettings
 
-class workerSettingsEvent {
+import com.example.diplom.screen.settings.SettingsEvent
+
+sealed class WorkerSettingsEvent {
+    object LogOutButtonClicked :
+        WorkerSettingsEvent()
 }

@@ -1,7 +1,7 @@
 package com.example.diplom.model
 
 data class SpecialistResponce(
-    val specID:Int,
+    val SpecialistID:Int,
     val Email: String,
     val Skills: String,
     val SpecName: String,

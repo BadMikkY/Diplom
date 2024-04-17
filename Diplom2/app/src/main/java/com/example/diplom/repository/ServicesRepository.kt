@@ -21,4 +21,6 @@ class ServicesRepository @Inject constructor(
         val params = mapOf("serviceName" to name, "description" to description)
         return api.searchServices(params)
     }
+
+    suspend fun createService(service: Service) = api.createService(service)
 }

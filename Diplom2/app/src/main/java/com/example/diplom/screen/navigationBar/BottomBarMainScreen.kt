@@ -28,6 +28,7 @@ import com.example.diplom.navigation.Destination
 import com.example.diplom.navigation.NavHost
 import com.example.diplom.navigation.composable
 import com.example.diplom.screen.bookingsScreen.BookingsScreen
+import com.example.diplom.screen.creatingService.CreatingServiceScreen
 import com.example.diplom.screen.main.MainScreen
 import com.example.diplom.screen.settings.SettingsScreen
 
@@ -39,6 +40,7 @@ fun BottomBarMainScreen() {
     val screens = listOf(
         Destination.MainScreen,
         Destination.BookingsScreen,
+        Destination.ServiceCreatingScreen,
         Destination.SettingsScreen
     )
 
@@ -64,6 +66,10 @@ fun BottomBarMainScreen() {
             }
             composable(destination = Destination.BookingsScreen) {
                 BookingsScreen()
+            }
+
+            composable(destination = Destination.ServiceCreatingScreen) {
+                CreatingServiceScreen()
             }
 
             composable(destination = Destination.SettingsScreen) {

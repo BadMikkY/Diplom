@@ -81,7 +81,7 @@ class RegistrationViewModel @Inject constructor(
                                 specialistResponse.SpecName?.let { sharedPreferencesRepisitory.setSpecName(it) }
                                 specialistResponse.Experience?.let { sharedPreferencesRepisitory.setSpecExp(it) }
                                 specialistResponse.Schedule?.let { sharedPreferencesRepisitory.setShedule(it) }
-                                sharedPreferencesRepisitory.setUserId(specialistResponse.specID)
+                                sharedPreferencesRepisitory.setUserId(specialistResponse.SpecialistID)
                             }
                             viewModelScope.launch {
                                 appNavigator.tryNavigateTo(

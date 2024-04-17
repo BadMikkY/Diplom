@@ -56,7 +56,10 @@ import javax.inject.Inject
                                 responseSpec.body()?.let { specialistResponse ->
                                     specialistResponse.SpecName?.let { sharedPreferencesRepisitory.setSpecName(it) }
                                     specialistResponse.Email?.let { sharedPreferencesRepisitory.setSpecialistMail(it) }
-                                    sharedPreferencesRepisitory.setSpecId(specialistResponse.specID)
+                                    sharedPreferencesRepisitory.setSpecId(specialistResponse.SpecialistID)
+                                    sharedPreferencesRepisitory.setSpecSkills(specialistResponse.Skills)
+                                    sharedPreferencesRepisitory.setSpecExp(specialistResponse.Experience)
+                                    sharedPreferencesRepisitory.setSpecRates(specialistResponse.Rates)
                                 }
                                 viewModelScope.launch {
                                     appNavigator.tryNavigateTo(
@@ -71,7 +74,7 @@ import javax.inject.Inject
                                     responseUser.body()?.let { userResponse ->
                                         userResponse.Username?.let { sharedPreferencesRepisitory.setUsername(it) }
                                         userResponse.Email?.let { sharedPreferencesRepisitory.setUserMail(it) }
-                                        sharedPreferencesRepisitory.setUserId(userResponse.userID)
+                                        sharedPreferencesRepisitory.setUserId(userResponse.UserID)
                                     }
                                     viewModelScope.launch {
                                         appNavigator.tryNavigateTo(

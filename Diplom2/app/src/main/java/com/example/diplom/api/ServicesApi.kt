@@ -20,5 +20,6 @@ interface ServicesApi {
         @Body params: Map<String, String>
     ): List<Service>
 
-
+    @POST("service/create")
+    suspend fun createService(@Body service: Service): Response<ServiceResponse>
 }
