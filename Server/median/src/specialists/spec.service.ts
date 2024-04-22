@@ -37,14 +37,7 @@ export class SpecService {
     return spec;
   }
 
-  async getSpec(id: number) {
-    const spec = await prisma.specialist.findUnique({
-      where: {
-        SpecialistID: id,
-      },
-    });
-    return spec;
-  }
+  
 
   async findSpecialistsByNameAndSkills(name: string, skills: string) {
     let whereClause = {};
@@ -113,5 +106,43 @@ export class SpecService {
       },
     });
     return review;
+  }
+
+  async getAllSepcialists(SpecName?: string, Skills?: string) {
+    let whereClause = {};
+    if (SpecName) {
+      whereClause = {
+        ...whereClause,
+        SpecName: {
+          contains: SpecName,
+          mode: 'insensitive',
+        },
+      };
+    }
+
+    if (Skills) {
+      whereClause = {
+        ...whereClause,
+        Skills: {
+          contains: Skills,
+          mode: 'insensitive',
+        },
+      };
+    }
+
+    const spec = await prisma.specialist.findMany({
+      where: whereClause,
+      select: {
+        SpecialistID: true,
+        Email: true,
+        Skills: true,
+        Experience: true,
+        Rates: true,
+        SpecName: true,
+        Reviews: true
+      },
+    });
+
+    return spec;
   }
 }

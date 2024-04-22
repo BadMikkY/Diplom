@@ -1,6 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Res } from '@nestjs/common';
 import { SpecService } from './spec.service';
 import { ApiTags } from '@nestjs/swagger';
+import { error } from 'node:console';
 
 @ApiTags('spec')
 @Controller('spec')
@@ -17,15 +18,7 @@ export class SpecController {
     }
   }
 
-  @Get(':id')
-  async getSpec(@Param('id') id: number, @Res() res: any) {
-    try {
-      const spec = await this.specService.getSpec(id);
-      res.status(HttpStatus.OK).json(spec);
-    } catch (error: any) {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
-    }
-  }
+  
 
   @Post('login')
   async loginSpec(@Body() loginData: { Email: string, Password: string }, @Res() res: any) {
@@ -68,5 +61,15 @@ export class SpecController {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
     }
   }
+
+  @Get('all')
+    async getAllServices(@Res() res: any) {
+        try {
+            const spec = await this.specService.getAllSepcialists();
+            res.status(HttpStatus.OK).json(spec);
+        } catch (error: any) {
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
 
 }

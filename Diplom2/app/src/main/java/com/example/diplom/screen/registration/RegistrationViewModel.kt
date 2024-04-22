@@ -8,13 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.diplom.api.SpecialistApi
 import com.example.diplom.model.Specialist
-import com.example.diplom.model.SpecialistResponce
-import com.example.diplom.model.User
 import com.example.diplom.navigation.AppNavigator
 import com.example.diplom.navigation.Destination
 import com.example.diplom.repository.SharedPreferencesRepository
-import com.example.diplom.repository.UserRepository
-import com.example.diplom.screen.registration.RegistrationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

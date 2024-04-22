@@ -10,6 +10,7 @@ import com.example.diplom.model.ServiceResponse
 import com.example.diplom.model.Specialist
 import com.example.diplom.navigation.AppNavigator
 import com.example.diplom.repository.ServicesRepository
+import com.example.diplom.repository.SpecialistRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,12 +23,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
-    private val repository: ServicesRepository
+    private val repository: SpecialistRepository
 ) : ViewModel() {
 
 
-    private val _servicesList = mutableStateListOf<Service>()
-    val serviceistListState: List<Service> = _servicesList
+    private val _specialistsList = mutableStateListOf<Specialist>()
+    val specialistsistListState: List<Specialist> = _specialistsList
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
@@ -38,13 +39,13 @@ class MainScreenViewModel @Inject constructor(
 
     fun handleEvent(mainScreenEvent: MainScreenEvent) {
         when (mainScreenEvent) {
-            is MainScreenEvent.loadServices -> {
+            is MainScreenEvent.loadSpecialists -> {
                 viewModelScope.launch {
-                    val response = repository.getAllServices()
+                    val response = repository.getAllSpecialists()
                     if (response.isSuccessful) {
                         withContext(Dispatchers.Main) {
-                            _servicesList.addAll(response.body() ?: emptyList())
-                            Log.d("LoadServices", serviceistListState.toString())
+                            _specialistsList.addAll(response.body() ?: emptyList())
+                            Log.d("LoadServices", specialistsistListState.toString())
                         }
                     }
                 }
@@ -52,7 +53,7 @@ class MainScreenViewModel @Inject constructor(
 
             is MainScreenEvent.searchQueryChanged -> {
                 _searchQuery.value = mainScreenEvent.queryString
-                viewModelScope.launch { searchServices(_searchQuery.value) }
+                viewModelScope.launch { searchSpecialists(_searchQuery.value) }
             }
 
             is MainScreenEvent.searchServices -> {
@@ -60,16 +61,16 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    private suspend fun searchServices(query: String) {
+    private suspend fun searchSpecialists(query: String) {
         viewModelScope.launch {
             Log.d("searchEstablishments QUERY", "searchEstablishments: $query")
-            var services = repository.searchServices(name = query, description = "")
+            var services = repository.searchSpecialists(name = query, skills = "")
             if (services.isNullOrEmpty()) {
-                services = repository.searchServices(name = "", description = query)
+                services = repository.searchSpecialists(name = "", skills = query)
             }
             if (services != null) {
-                _servicesList.clear()
-                _servicesList.addAll(services)
+                _specialistsList.clear()
+                _specialistsList.addAll(services)
             }
         }
     }

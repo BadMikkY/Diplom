@@ -8,5 +8,6 @@ data class SpecialistResponce(
     val Password: String,
     val Experience: String,
     val Schedule: String,
-    val Rates: String
+    val Rates: String,
+    val Reviews: String
 )

@@ -21,7 +21,7 @@ class NetworkModule {
     @Singleton
     fun provideUserApi(): UserApi {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.103:3000/")
+            .baseUrl("http://192.168.100.7:3000/")
             .client(
                 OkHttpClient().newBuilder()
                     .addInterceptor(
@@ -40,7 +40,7 @@ class NetworkModule {
     @Singleton
     fun provideSpecialistApi(): SpecialistApi {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.103:3000/")
+            .baseUrl("http://192.168.100.7:3000/")
             .client(
                 OkHttpClient().newBuilder()
                     .addInterceptor(
@@ -59,7 +59,7 @@ class NetworkModule {
     @Singleton
     fun provideServiceApi(): ServicesApi {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.103:3000/")
+            .baseUrl("http://192.168.100.7:3000/")
             .client(
                 OkHttpClient().newBuilder()
                     .addInterceptor(
