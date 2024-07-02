@@ -25,14 +25,14 @@ sealed class Destination(protected val route: String, vararg params: String) {
     object AuthorizationScreen : NoArgumentsDestination(AUTHORIZATION_ROUTE)
     object EntryScreen : NoArgumentsDestination(ENTRY_ROUTE)
     object ClientRegScreen : NoArgumentsDestination(CLIENT_ROUTE)
-    object BookingsScreen : NoArgumentsDestinationBottom(BOOKING_ROUTE, title = R.string.bookings, icon = R.drawable.ic_catalog)
-    object MainScreen : NoArgumentsDestinationBottom(MAIN_ROUTE, title = R.string.bookings, icon = R.drawable.ic_catalog)
+    object BookingsScreen : NoArgumentsDestinationBottom(BOOKING_ROUTE, title = R.string.bookings, icon = R.drawable.ic_search)
+    object MainScreen : NoArgumentsDestinationBottom(MAIN_ROUTE, title = R.string.catalog, icon = R.drawable.ic_catalog)
     object SettingsScreen : NoArgumentsDestinationBottom(SETTINGS_ROUTE, title = R.string.settings, icon = R.drawable.ic_settings)
     object WorkerSettingsScreen : NoArgumentsDestinationBottom(WORKER_SETTINGS, title = R.string.settings, icon = R.drawable.ic_settings)
     object WorkerMainScreen : NoArgumentsDestinationBottom(WORKER_MAIN, title = R.string.main, icon = R.drawable.main_icon)
-    object WorkerBookingsScreen : NoArgumentsDestinationBottom(WORKER_BOOKINGS, title = R.string.settings, icon = R.drawable.ic_settings)
+    object WorkerBookingsScreen : NoArgumentsDestinationBottom(WORKER_BOOKINGS, title = R.string.bookings, icon = R.drawable.ic_catalog)
 
-    object  ServiceCreatingScreen: NoArgumentsDestinationBottom(CREATING_SERVICE, title = R.string.nothing, icon = R.drawable.ic_plus )
+    object  ServiceCreatingScreen: NoArgumentsDestinationBottom(CREATING_SERVICE, title = R.string.add, icon = R.drawable.ic_plus)
 
     object BottomWorkerBarScreen : NoArgumentsDestination(WORKER_BAR)
 

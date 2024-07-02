@@ -22,4 +22,5 @@ interface ServicesApi {
 
     @POST("service/create")
     suspend fun createService(@Body service: Service): Response<ServiceResponse>
+
 }

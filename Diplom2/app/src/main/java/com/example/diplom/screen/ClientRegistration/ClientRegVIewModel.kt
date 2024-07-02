@@ -49,49 +49,43 @@ class ClientRegVIewModel @Inject constructor(
     fun handleEvent(regEvent: ClientRegEvent) {
         when (regEvent) {
             is ClientRegEvent.RegisterUser -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    try {
-                        val response = reposity.registerUser(User(UserName, Password, Email, Role = "user"))
-                        if (response.isSuccessful && isTextFieldsEmpty()) {
-                            response.body()?.let { userResponse ->
-                                userResponse.Username?.let { sharedPreferencesRepisitory.setUsername(it) }
-                                userResponse.Email?.let { sharedPreferencesRepisitory.setUserMail(it) }
-                                sharedPreferencesRepisitory.setUserId(userResponse.UserID)
-                            }
-                            viewModelScope.launch {
-                                appNavigator.tryNavigateTo(
-                                    Destination.AuthorizationScreen(),
-                                    popUpToRoute = Destination.ClientRegScreen()
-                                )
-                            }
-                        }
-                    } catch (e: Exception) {
-                        Log.e("ClientRegViewModel", "Exception in handleEvent", e)
-                    }
+                if (isTextFieldsEmpty()) {
+                    onEmptyTextFields?.invoke()
+                } else {
+                    registerUser()
                 }
             }
+            is ClientRegEvent.EmailStringChanged -> {}
+            is ClientRegEvent.NameStringChanged -> {}
+            is ClientRegEvent.PasswordStringChanged -> {}
+            else -> {}
+        }
+    }
 
-            is ClientRegEvent.EmailStringChanged -> {
-
-            }
-
-            is ClientRegEvent.NameStringChanged -> {
-
-            }
-
-            is ClientRegEvent.PasswordStringChanged -> {
-
+    private fun registerUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = reposity.registerUser(User(UserName, Password, Email, Role = "user"))
+                if (response.isSuccessful) {
+                    response.body()?.let { userResponse ->
+                        userResponse.Username?.let { sharedPreferencesRepisitory.setUsername(it) }
+                        userResponse.Email?.let { sharedPreferencesRepisitory.setUserMail(it) }
+                        sharedPreferencesRepisitory.setUserId(userResponse.UserID)
+                    }
+                    viewModelScope.launch {
+                        appNavigator.tryNavigateTo(
+                            Destination.AuthorizationScreen(),
+                            popUpToRoute = Destination.ClientRegScreen()
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ClientRegViewModel", "Exception in handleEvent", e)
             }
         }
     }
 
-
     private fun isTextFieldsEmpty(): Boolean {
-        return if (Email.isNotEmpty() || Password.isNotEmpty()) {
-            true
-        } else {
-            onEmptyTextFields
-            false
-        }
+        return UserName.isEmpty() || Email.isEmpty() || Password.isEmpty()
     }
 }

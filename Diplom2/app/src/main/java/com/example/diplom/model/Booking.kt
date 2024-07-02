@@ -1,10 +1,9 @@
 package com.example.diplom.model
 
 data class Booking(
-    val bookingId: Int,
-    val userId: Int,
-    val specialistId: Int,
-    val bookingDate: String,
-    val Status: String,
-    val reviewId: Int
+    val UserID: Int? = null,
+    val BookingID: Int? = null,
+    val SpecialistID: Int? = null,
+    val BookingDate: String? = null,
+    val Status: String? = null
 )

@@ -1,5 +1,6 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Res } from '@nestjs/common';
 import { ProgressService } from './progress.service';
+import { log } from 'node:console';
 
 @Controller('progress')
 export class ProgressController {
@@ -16,9 +17,9 @@ export class ProgressController {
     }
 
     @Post('addcomment')
-    async updateWorkProgress(@Body() progressData: { progressId: number, comment: string }, @Res() res: any) {
+    async updateWorkProgress(@Body() progressData: { ProgressID: number, Comment: string }, @Res() res: any) {
         try {
-            const newProgress = await this.progressService.updateWorkProgress(progressData.progressId, progressData.comment);
+            const newProgress = await this.progressService.updateWorkProgress(progressData.ProgressID, progressData.Comment);
             res.status(HttpStatus.OK).json(progressData)
             console.log(newProgress)
             return newProgress;
@@ -28,9 +29,9 @@ export class ProgressController {
     }
 
     @Post('updatepercentage')
-    async updatePercentage(@Body() progressData: { progressId: number, percentage:number }, @Res() res: any) {
+    async updatePercentage(@Body() progressData: { ProgressID: number, Percentage:number }, @Res() res: any) {
         try {
-            const newProgress = await this.progressService.updatePercentOfProgress(progressData.progressId, progressData.percentage);
+            const newProgress = await this.progressService.updatePercentOfProgress(progressData.ProgressID, progressData.Percentage);
             res.status(HttpStatus.OK).json(progressData)
             console.log(newProgress)
             return newProgress;
@@ -41,11 +42,14 @@ export class ProgressController {
     
 
     @Post('getprogress')
-    async getProgressById(@Param('ProgressID') id: number, @Res() res: any) {
+    async getProgressById(@Body('BookingID') id: number, @Res() res: any) {
+        console.log('Received BookingID:', id); // Логируем полученный BookingID
         try {
-            const spec = await this.progressService.getProgressById(id);
-            res.status(HttpStatus.OK).json(spec);
+            const progress = await this.progressService.getProgressById(id);
+            console.log('Progress:', progress); // Логируем полученный progress
+            res.status(HttpStatus.OK).json(progress);
         } catch (error: any) {
+            console.log('Error:', error.message); // Логируем ошибку
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }

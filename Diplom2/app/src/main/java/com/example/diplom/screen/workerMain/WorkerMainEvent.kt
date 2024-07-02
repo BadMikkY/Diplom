@@ -8,4 +8,7 @@ sealed class WorkerMainEvent {
 
     data class searchQueryChanged(val queryString: String) :
         WorkerMainEvent()
+
+    object confirmButtonClicked :
+            WorkerMainEvent()
 }

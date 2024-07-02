@@ -9,4 +9,11 @@ sealed class MainScreenEvent {
 
     object searchServices :
         MainScreenEvent()
+
+
+    object confirmButtonClicked :
+        MainScreenEvent()
+
+    object hireButtonClicked :
+        MainScreenEvent()
 }

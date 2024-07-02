@@ -29,14 +29,15 @@ export class ProgressService {
     return workProgress;
   }
 
-  async getProgressById(progressId: number) {
-    const workProgress = await prisma.workProgress.findMany({
+  async getProgressById(bookingId: number) {
+    console.log('Searching for BookingID:', bookingId); // Логируем BookingID перед поиском
+    const workProgress = await prisma.workProgress.findUnique({
       where: {
-        ProgressID: progressId,
+        BookingID: bookingId,
       }
     });
     return workProgress;
-  }
+}
 
   async updatePercentOfProgress(progressId: number, persentage: number): Promise<WorkProgress> {
     const workProgress = await prisma.workProgress.update({

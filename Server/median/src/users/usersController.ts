@@ -40,4 +40,17 @@ export class UserController {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }
+
+    @Post('update')
+    async updateUser(@Body() updateData: { UserID: number, Username: string, Password: string }, @Res() res: any) {
+        try {
+            const updatedUser = await this.userService.updateUser(updateData.UserID, updateData.Username, updateData.Password);
+            if (updatedUser) {
+                updatedUser.Password = undefined; 
+            }
+            res.status(HttpStatus.OK).json(updatedUser);
+        } catch (error: any) {
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
 }

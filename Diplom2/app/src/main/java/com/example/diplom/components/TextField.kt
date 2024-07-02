@@ -38,6 +38,7 @@ fun TextField(
     textFieldBottomPadding: Dp,
     isPasswordField: Boolean = false,
     isVerified: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     onChange: (String) -> Unit = {},
     supportText: Int,
     isError: Boolean = false
@@ -69,11 +70,19 @@ fun TextField(
         visualTransformation = if (passwordVisible || !isPasswordField) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             if (isPasswordField) {
-
+                val icon = if (passwordVisible) {
+                    painterResource(id = R.drawable.ic_visibility)
+                } else {
+                    painterResource(id = R.drawable.ic_visibility_off)
+                }
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(
-                        painter = painterResource(id = 0),
-                        contentDescription = ""
+                        painter = icon,
+                        contentDescription = if (passwordVisible) {
+                            stringResource(id = R.string.hide_password)
+                        } else {
+                            stringResource(id = R.string.show_password)
+                        }
                     )
                 }
             }

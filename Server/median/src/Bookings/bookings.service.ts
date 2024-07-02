@@ -25,4 +25,34 @@ export class BookingService {
         });
         return booking;
     }
+
+    async getBookingBySpecID(id:number){
+        const bookings = await prisma.booking.findMany({
+            where: {
+                SpecialistID: id
+            },
+        });
+        return bookings;
+    }
+
+    async getBookingByUserID(id:number){
+        const bookings = await prisma.booking.findMany({
+            where: {
+                UserID: id
+            },
+        });
+        return bookings;
+    }
+
+        async updateBookingStatus(id: number, status: string) {
+            const booking = await prisma.booking.update({
+                where: {
+                    BookingID: id
+                },
+                data: {
+                    Status: status
+                },
+            });
+            return booking;
+        }
 }

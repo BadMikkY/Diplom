@@ -53,7 +53,7 @@ model Booking {
   SpecialistID  Int
   BookingDate   String        @db.Text
   Status        String        @db.Text
-  ReviewID      Int
+  ReviewID      Int?
   User          User          @relation(fields: [UserID], references: [UserID])
   Specialist    Specialist    @relation(fields: [SpecialistID], references: [SpecialistID])
   WorkProgress  WorkProgress?
@@ -74,5 +74,6 @@ model WorkProgress {
   BookingID  Int      @unique
   Comment    String   @db.Text
   Percentage Int
-  Booking    Booking  @relation(fields: [BookingID], references: [BookingID])
+  Booking    Booking  @relation(fields: [BookingID], references: [BookingID], onDelete: Cascade)
 }
+

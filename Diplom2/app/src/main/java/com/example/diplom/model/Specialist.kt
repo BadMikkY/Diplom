@@ -7,5 +7,6 @@ data class Specialist(
     val Password: String,
     val Experience: String? = null,
     val Schedule: String? = null,
-    val Rates: String? = null
+    val Rates: String? = null,
+    val SpecialistID: Int? = null,
 )

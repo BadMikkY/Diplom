@@ -17,12 +17,12 @@ import com.example.diplom.components.TextField
 import com.example.diplom.screen.registration.RegistrationEvent
 
 @Composable
-
 fun ClientRegScreen(vIewModel: ClientRegVIewModel = hiltViewModel()) {
     val context = LocalContext.current
 
-    vIewModel.onEmptyTextFields =
-        { Toast.makeText(context, "Заполните все поля", Toast.LENGTH_SHORT).show() }
+    vIewModel.onEmptyTextFields = {
+        Toast.makeText(context, "Заполните все поля", Toast.LENGTH_SHORT).show()
+    }
 
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -49,15 +49,15 @@ fun ClientRegScreen(vIewModel: ClientRegVIewModel = hiltViewModel()) {
 
         TextField(
             vIewModel.Password,
-            R.string.password, R.string.password,16.dp, isVerified = true,
-            onChange = {password -> vIewModel.updatePassword(password)},
+            R.string.password, R.string.password, 16.dp, isVerified = true,
+            onChange = { password -> vIewModel.updatePassword(password) },
             supportText = R.string.nothing
         )
 
         CommonButton(
             text = R.string.move_next,
             topPadding = 150.dp,
-            onClick = { vIewModel.handleEvent(ClientRegEvent.RegisterUser) })
+            onClick = { vIewModel.handleEvent(ClientRegEvent.RegisterUser) }
+        )
     }
-
 }

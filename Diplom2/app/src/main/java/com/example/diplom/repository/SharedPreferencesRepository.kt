@@ -3,13 +3,7 @@ package com.example.diplom.repository
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.example.diplom.navigation.AppNavigator
-import com.example.diplom.navigation.AppNavigatorImpl
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -29,6 +23,7 @@ private const val SPEC_ID = "specid"
 private const val SPEC_NAME = "specname"
 private const val SPEC_SKILLS = "specskills"
 private const val DEFAULT_SPEC_SKILLS = "specskills"
+private const val DEFAULT_SPEC_ID = "0"
 private const val SPEC_EXP = "specexp"
 private const val DEFAULT_SPEC_EXP = "specexp"
 private const val SPEC_RATES = "specsrates"
@@ -36,6 +31,11 @@ private const val DEFAULT_SPEC_RATES = "specsrates"
 private const val SPEC_SHEDULE = "specshedule"
 private const val SPEC_MAIL = "specmail"
 private const val DEFAULT_SPECMAIL = "specmail"
+private const val DEFAULT_DESCRIPTION = "description"
+private const val BOOKING_ID = "bookingid"
+private const val PROGRESSID = "workprogress"
+private const val DEFAULT_WORKPROGRESS = "workprogress"
+
 
 @Singleton
 class SharedPreferencesRepository @Inject constructor(
@@ -55,6 +55,17 @@ class SharedPreferencesRepository @Inject constructor(
 
     fun getUserName(): String =
         userPreferences?.getString(USERNAME, DEFAULT_USERNAME) ?: DEFAULT_USERNAME
+
+
+    fun setProgressID(progressId: Number) {
+        userPreferences?.edit {
+            putString(PROGRESSID, progressId.toString())
+        }
+    }
+
+    fun getProgressID(): Int {
+        return userPreferences?.getString(PROGRESSID, "0")?.toInt() ?: 0
+    }
 
     fun setUserMail(email: String) {
         userPreferences?.edit() {
@@ -96,11 +107,16 @@ class SharedPreferencesRepository @Inject constructor(
     fun getSpecialistMail(): String =
         userPreferences?.getString(SPEC_MAIL, DEFAULT_SPECMAIL) ?: DEFAULT_SPECMAIL
 
+    fun getDescription(it1: String): String =
+        userPreferences?.getString(DESCRIPTION, DEFAULT_DESCRIPTION) ?: DEFAULT_DESCRIPTION
+
+
     fun setSpecId(specId: Number) {
         userPreferences?.edit() {
             putString(SPEC_ID, specId.toString())
         }
     }
+
 
     fun setSpecSkills(skills: String) {
         userPreferences?.edit() {
@@ -150,6 +166,21 @@ class SharedPreferencesRepository @Inject constructor(
 
     fun getUserId(): Int {
         return userPreferences?.getString(USER_ID, "0")?.toInt() ?: 0
+    }
+
+
+    fun getSpecId(): Int {
+        return userPreferences?.getString(SPEC_ID, "0")?.toInt() ?: 0
+    }
+
+    fun setBookingId(bookingId: Number) {
+        userPreferences?.edit() {
+            putString(BOOKING_ID, bookingId.toString())
+        }
+    }
+
+    fun getBookingId(): Int {
+        return userPreferences?.getString(BOOKING_ID, "0")?.toInt() ?: 0
     }
 
 

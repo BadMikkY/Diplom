@@ -1,5 +1,7 @@
 package com.example.diplom.api
 
+import com.example.diplom.model.Booking
+import com.example.diplom.model.BookingResponse
 import com.example.diplom.model.User
 import com.example.diplom.model.UserResponse
 import retrofit2.Response
@@ -16,4 +18,14 @@ interface UserApi{
     suspend fun loginUser(
         @Body user: User
     ):Response<UserResponse>
+
+    @POST("booking/create")
+    suspend fun createBooking(
+        @Body booking: Booking
+    ): Response<BookingResponse>
+
+    @POST("user/update")
+    suspend fun updateUser(
+        @Body userResponse: UserResponse
+    ): Response<UserResponse>
 }

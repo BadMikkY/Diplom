@@ -44,4 +44,24 @@ export class UserService {
         });
         return user;
     }
+
+
+   async updateUser(id: number, userName: string, password: string) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const updatedUser = await prisma.user.update({
+            where: {
+                UserID: id,
+            },
+            data: {
+                UserName: userName,
+                Password: hashedPassword,
+            },
+        });
+
+        return updatedUser;
+    }
+    
 }
+
+

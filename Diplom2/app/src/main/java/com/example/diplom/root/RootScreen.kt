@@ -44,7 +44,7 @@ fun RootSreen(
     ) {
         com.example.diplom.navigation.NavHost(
             navController = navController,
-            startDestination = Destination.EntryScreen
+            startDestination = Destination.AuthorizationScreen
         ) {
             composable(destination = Destination.RegistrationScreen) {
                 RegistrationScreen()
@@ -109,6 +109,8 @@ fun NavigationEffects(
                         }
                     }
                 }
+
+                else -> {}
             }
         }
     }

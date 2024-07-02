@@ -44,5 +44,4 @@ fun CommonButton(
             fontSize = 16.sp
         )
     }
-
 }

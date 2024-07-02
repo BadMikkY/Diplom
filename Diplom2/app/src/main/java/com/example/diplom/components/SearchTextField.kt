@@ -43,7 +43,7 @@ fun SearchTextField(
         },
         placeholder = {
             Text(
-                text = stringResource(id = R.string.worker),
+                text = stringResource(id = R.string.search),
                 textAlign = TextAlign.Center
             )
         },

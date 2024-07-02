@@ -37,8 +37,6 @@ export class SpecService {
     return spec;
   }
 
-  
-
   async findSpecialistsByNameAndSkills(name: string, skills: string) {
     let whereClause = {};
 
@@ -72,7 +70,6 @@ export class SpecService {
         Experience: true,
         Schedule: true,
         Rates: true,
-
       },
     });
 
@@ -144,5 +141,24 @@ export class SpecService {
     });
 
     return spec;
+  }
+
+  async updateSpec(data: { SpecialistID: number, SpecName?: string, Password?: string }) {
+    const updateData: any = {};
+    if (data.SpecName) {
+      updateData.SpecName = data.SpecName;
+    }
+    if (data.Password) {
+      updateData.Password = await bcrypt.hash(data.Password, 10);
+    }
+
+    const updatedSpec = await prisma.specialist.update({
+      where: {
+        SpecialistID: data.SpecialistID,
+      },
+      data: updateData,
+    });
+
+    return updatedSpec;
   }
 }
